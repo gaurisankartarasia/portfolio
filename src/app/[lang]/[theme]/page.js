@@ -6,7 +6,20 @@ import ProjectsSection from "@/components/projects-section";
 import SkillsAndEducationWrapper from "@/components/skills-and-education-wrapper";
 import ContactSection from "@/components/contact-section";
 
-export default function Home() {
+const validLangs = ["en", "or", "hi", "bn", "te", "ta", "es", "fr", "de", "ja"];
+const validThemes = ["dark", "light"];
+
+export async function generateStaticParams() {
+  const paths = [];
+  for (const lang of validLangs) {
+    for (const theme of validThemes) {
+      paths.push({ lang, theme });
+    }
+  }
+  return paths;
+}
+
+export default function LangThemePage({ params }) {
   return (
     <main className="min-h-screen bg-white dark:bg-[#070e1a] text-slate-900 dark:text-white selection:bg-blue-600 selection:text-white transition-colors duration-300">
       <Navbar />
