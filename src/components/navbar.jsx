@@ -37,7 +37,8 @@ export default function AppNavbar() {
       <NavBody>
         <NavbarLogo>
           <div className="flex size-9 items-center justify-center rounded-lg bg-blue-600 text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
-            <AnimatedCodeIcon className="size-4" />
+            {/* <AnimatedCodeIcon className="size-4" /> */}
+            <span className="font-semibold text-xs">Beta</span>
           </div>
           <span className="text-sm font-bold tracking-tight text-slate-900 dark:text-white">
             Gaurisankar Tarasia
