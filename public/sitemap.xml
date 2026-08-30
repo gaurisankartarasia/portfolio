@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- Main Home URL -->
+  <url>
+    <loc>https://gaurisankartarasia.web.app/</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <!-- Language Alternates -->
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gaurisankartarasia.web.app/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://gaurisankartarasia.web.app/en" />
+    <xhtml:link rel="alternate" hreflang="or" href="https://gaurisankartarasia.web.app/or" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://gaurisankartarasia.web.app/hi" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://gaurisankartarasia.web.app/bn" />
+    <xhtml:link rel="alternate" hreflang="te" href="https://gaurisankartarasia.web.app/te" />
+    <xhtml:link rel="alternate" hreflang="ta" href="https://gaurisankartarasia.web.app/ta" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://gaurisankartarasia.web.app/es" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://gaurisankartarasia.web.app/fr" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://gaurisankartarasia.web.app/de" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://gaurisankartarasia.web.app/ja" />
+  </url>
+
+  <!-- Language Specific Pages -->
+  <url>
+    <loc>https://gaurisankartarasia.web.app/en</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gaurisankartarasia.web.app/or</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gaurisankartarasia.web.app/hi</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gaurisankartarasia.web.app/bn</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gaurisankartarasia.web.app/te</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gaurisankartarasia.web.app/ta</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gaurisankartarasia.web.app/es</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gaurisankartarasia.web.app/fr</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gaurisankartarasia.web.app/de</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gaurisankartarasia.web.app/ja</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>
