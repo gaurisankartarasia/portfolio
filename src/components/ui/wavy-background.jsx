@@ -119,53 +119,42 @@ export const WavyBackground = ({
   const noise = React.useMemo(() => createNoise3D(), []);
   const canvasRef = useRef(null);
 
-  const getSpeed = () => {
-    switch (speed) {
-      case "slow":
-        return 0.001;
-      case "fast":
-        return 0.002;
-      default:
-        return 0.001;
-    }
-  };
-
-  const waveColors = colors ?? [
-    "#38bdf8",
-    "#818cf8",
-    "#c084fc",
-    "#e879f9",
-    "#22d3ee",
-  ];
-
   useEffect(() => {
+    const waveColors = colors ?? [
+      "#38bdf8",
+      "#818cf8",
+      "#c084fc",
+      "#e879f9",
+      "#22d3ee",
+    ];
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
-    let w = (ctx.canvas.width = canvas.parentElement?.offsetWidth || window.innerWidth);
-    let h = (ctx.canvas.height = canvas.parentElement?.offsetHeight || window.innerHeight);
-    ctx.filter = `blur(${blur}px)`;
+    const speedStep = speed === "fast" ? 0.002 : 0.001;
+    const scale = 0.5; // 2x downscale for massive CPU/GPU savings
+    let w = (ctx.canvas.width = Math.max(1, Math.floor((canvas.parentElement?.offsetWidth || window.innerWidth) * scale)));
+    let h = (ctx.canvas.height = Math.max(1, Math.floor((canvas.parentElement?.offsetHeight || window.innerHeight) * scale)));
     let nt = 0;
 
     const handleResize = () => {
       if (!canvas || !canvas.parentElement) return;
-      w = ctx.canvas.width = canvas.parentElement.offsetWidth;
-      h = ctx.canvas.height = canvas.parentElement.offsetHeight;
-      ctx.filter = `blur(${blur}px)`;
+      w = ctx.canvas.width = Math.max(1, Math.floor(canvas.parentElement.offsetWidth * scale));
+      h = ctx.canvas.height = Math.max(1, Math.floor(canvas.parentElement.offsetHeight * scale));
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
 
     const drawWave = (n) => {
-      nt += getSpeed();
+      nt += speedStep;
+      const scaledWaveWidth = (waveWidth || 50) * scale;
       for (let i = 0; i < n; i++) {
         ctx.beginPath();
-        ctx.lineWidth = waveWidth || 50;
+        ctx.lineWidth = scaledWaveWidth;
         ctx.strokeStyle = waveColors[i % waveColors.length];
-        for (let x = 0; x < w; x += 5) {
-          const y = noise(x / 800, 0.3 * i, nt) * 100;
+        for (let x = 0; x < w; x += 10) {
+          const y = noise((x / scale) / 800, 0.3 * i, nt) * 100 * scale;
           ctx.lineTo(x, y + h * 0.5);
         }
         ctx.stroke();
@@ -173,8 +162,11 @@ export const WavyBackground = ({
       }
     };
 
-    let animationId;
+    let animationId = null;
+    let inView = false;
+
     const render = () => {
+      if (!inView) return;
       ctx.clearRect(0, 0, w, h);
       if (backgroundFill && backgroundFill !== "transparent") {
         ctx.fillStyle = backgroundFill;
@@ -185,13 +177,33 @@ export const WavyBackground = ({
       animationId = requestAnimationFrame(render);
     };
 
-    render();
+    const intersectionObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            if (!inView) {
+              inView = true;
+              cancelAnimationFrame(animationId);
+              animationId = requestAnimationFrame(render);
+            }
+          } else {
+            inView = false;
+            cancelAnimationFrame(animationId);
+          }
+        }
+      },
+      { threshold: 0.05 }
+    );
+
+    intersectionObserver.observe(canvas);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      inView = false;
       cancelAnimationFrame(animationId);
+      intersectionObserver.disconnect();
+      window.removeEventListener("resize", handleResize);
     };
-  }, [blur, speed, waveColors, waveWidth, waveOpacity, backgroundFill, noise]);
+  }, [blur, speed, colors, waveWidth, waveOpacity, backgroundFill, noise]);
 
   return (
     <div
@@ -202,6 +214,7 @@ export const WavyBackground = ({
     >
       <canvas
         className="pointer-events-none absolute inset-0 z-0 h-full w-full opacity-60 dark:opacity-40"
+        style={{ filter: `blur(${blur}px)`, transform: "translateZ(0)" }}
         ref={canvasRef}
       />
       <div className={cn("relative z-10 w-full", className)} {...props}>

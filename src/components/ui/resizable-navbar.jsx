@@ -1,33 +1,26 @@
 "use client";
 
-import React, { useRef, useState } from "react";
-import {
-  motion,
-  AnimatePresence,
-  useScroll,
-  useMotionValueEvent,
-} from "motion/react";
-import { Menu, X } from "@animateicons/react/lucide";
+import React, { useState, useEffect } from "react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export const Navbar = ({ children, className }) => {
-  const ref = useRef(null);
-  const { scrollY } = useScroll();
   const [visible, setVisible] = useState(false);
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    if (latest > 50) {
-      setVisible(true);
-    } else {
-      setVisible(false);
-    }
-  });
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 40;
+      setVisible((prev) => (prev !== isScrolled ? isScrolled : prev));
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <motion.header
-      ref={ref}
+    <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 flex w-full justify-center pointer-events-none px-3 pt-3 md:pt-4",
+        "fixed inset-x-0 top-0 z-50 flex w-full justify-center pointer-events-none px-3 pt-3 md:pt-4 transition-all duration-300",
         className
       )}
     >
@@ -38,45 +31,29 @@ export const Navbar = ({ children, className }) => {
             : child
         )}
       </div>
-    </motion.header>
+    </header>
   );
 };
 
 export const NavBody = ({ children, className, visible }) => {
   return (
-    <motion.div
-      animate={{
-        backdropFilter: visible ? "blur(12px)" : "none",
-        boxShadow: visible
-          ? "0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05)"
-          : "none",
-        width: visible ? "68%" : "100%",
-        y: visible ? 8 : 0,
-      }}
-      transition={{
-        type: "spring",
-        stiffness: 200,
-        damping: 30,
-      }}
+    <div
       className={cn(
-        "relative z-[60] mx-auto hidden w-full max-w-6xl flex-row items-center justify-between self-start rounded-2xl border px-5 py-2.5 transition-colors duration-300 md:flex",
+        "relative z-[60] mx-auto hidden w-full flex-row items-center justify-between self-start rounded-2xl border px-5 py-2.5 transition-all duration-300 ease-out md:flex",
         visible
-          ? "bg-white/85 dark:bg-[#070e1a]/85 border-slate-200/80 dark:border-slate-800/80 shadow-md shadow-slate-900/5 dark:shadow-black/20"
-          : "bg-white/50 dark:bg-[#070e1a]/50 border-slate-200/40 dark:border-slate-800/40 backdrop-blur-xs",
+          ? "max-w-4xl bg-white/90 dark:bg-[#070e1a]/90 border-slate-200/80 dark:border-slate-800/80 shadow-md shadow-slate-900/5 dark:shadow-black/20 backdrop-blur-md translate-y-1"
+          : "max-w-6xl bg-white/50 dark:bg-[#070e1a]/50 border-slate-200/40 dark:border-slate-800/40 backdrop-blur-xs translate-y-0",
         className
       )}
     >
       {children}
-    </motion.div>
+    </div>
   );
 };
 
 export const NavItems = ({ items = [], className, onItemClick }) => {
-  const [hovered, setHovered] = useState(null);
-
   return (
-    <motion.div
-      onMouseLeave={() => setHovered(null)}
+    <nav
       className={cn(
         "hidden md:flex flex-row items-center justify-center space-x-1 text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300",
         className
@@ -86,27 +63,19 @@ export const NavItems = ({ items = [], className, onItemClick }) => {
         <a
           key={`link-${idx}`}
           href={item.link}
-          onMouseEnter={() => setHovered(idx)}
           onClick={onItemClick}
-          className="relative px-3 py-1.5 transition-colors hover:text-blue-600 dark:hover:text-blue-400"
+          className="relative px-3 py-1.5 rounded-lg transition-colors hover:bg-blue-50/80 dark:hover:bg-slate-800/80 hover:text-blue-600 dark:hover:text-blue-400"
         >
-          {hovered === idx && (
-            <motion.div
-              layoutId="hovered"
-              className="absolute inset-0 h-full w-full rounded-lg bg-blue-50/80 dark:bg-slate-800/80"
-              transition={{ type: "spring", stiffness: 400, damping: 30 }}
-            />
-          )}
           <span className="relative z-20">{item.name}</span>
         </a>
       ))}
-    </motion.div>
+    </nav>
   );
 };
 
 export const NavbarLogo = ({ children, className }) => {
   return (
-    <a href="#" className={cn("flex items-center gap-2.5 group shrink-0", className)}>
+    <a href="#" aria-label="Home" className={cn("flex items-center gap-2.5 group shrink-0", className)}>
       {children}
     </a>
   );
@@ -140,30 +109,17 @@ export const NavbarButton = ({
 
 export const MobileNav = ({ children, className, visible }) => {
   return (
-    <motion.div
-      animate={{
-        backdropFilter: visible ? "blur(12px)" : "none",
-        boxShadow: visible
-          ? "0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05)"
-          : "none",
-        width: visible ? "94%" : "100%",
-        y: visible ? 6 : 0,
-      }}
-      transition={{
-        type: "spring",
-        stiffness: 200,
-        damping: 30,
-      }}
+    <div
       className={cn(
-        "relative z-50 mx-auto flex w-full flex-col items-center justify-between rounded-xl border px-3 py-2 transition-colors md:hidden",
+        "relative z-50 mx-auto flex w-full flex-col items-center justify-between rounded-xl border px-3 py-2 transition-all duration-300 md:hidden",
         visible
-          ? "bg-white/90 dark:bg-[#070e1a]/90 border-slate-200/80 dark:border-slate-800/80 shadow-md"
-          : "bg-white/80 dark:bg-[#070e1a]/80 border-slate-200/50 dark:border-slate-800/50 backdrop-blur-sm",
+          ? "w-[94%] bg-white/95 dark:bg-[#070e1a]/95 border-slate-200/80 dark:border-slate-800/80 shadow-md backdrop-blur-md translate-y-1"
+          : "w-full bg-white/80 dark:bg-[#070e1a]/80 border-slate-200/50 dark:border-slate-800/50 backdrop-blur-sm translate-y-0",
         className
       )}
     >
       {children}
-    </motion.div>
+    </div>
   );
 };
 
@@ -199,24 +155,17 @@ export const MobileNavMenu = ({
   children,
   className,
   isOpen,
-  onClose,
 }) => {
+  if (!isOpen) return null;
+
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 0.25, ease: "easeInOut" }}
-          className={cn(
-            "w-full overflow-hidden border-t border-slate-100 dark:border-slate-800/80 pt-3 mt-2 space-y-2",
-            className
-          )}
-        >
-          {children}
-        </motion.div>
+    <div
+      className={cn(
+        "w-full overflow-hidden border-t border-slate-100 dark:border-slate-800/80 pt-3 mt-2 space-y-2 animate-in fade-in-50 duration-200",
+        className
       )}
-    </AnimatePresence>
+    >
+      {children}
+    </div>
   );
 };

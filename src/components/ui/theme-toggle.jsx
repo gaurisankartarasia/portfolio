@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "motion/react";
-import { Sun, Moon } from "@animateicons/react/lucide";
+import { Sun, Moon } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { parseRouteState, buildRoutePath } from "@/components/url-sync-handler";
 
@@ -11,11 +11,11 @@ export function ThemeToggle({ className = "" }) {
   const pathname = usePathname();
   const router = useRouter();
   const { theme, setTheme, resolvedTheme } = useTheme();
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = React.useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
 
   if (!mounted) {
     return (

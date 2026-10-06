@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import {
   Navbar,
   NavBody,
@@ -14,10 +15,7 @@ import {
 } from "@/components/ui/resizable-navbar";
 import { GoogleTranslator } from "@/components/ui/google-translator";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
-import {
-  AnimatedGithubIcon,
-  AnimatedCodeIcon,
-} from "@/components/ui/animated-icons";
+import { AnimatedGithubIcon } from "@/components/ui/animated-icons";
 
 export default function AppNavbar() {
   const navItems = [
@@ -36,9 +34,15 @@ export default function AppNavbar() {
       {/* Desktop Navigation with Aceternity Resizing Container */}
       <NavBody>
         <NavbarLogo>
-          <div className="flex size-9 items-center justify-center rounded-lg bg-blue-600 text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
-            {/* <AnimatedCodeIcon className="size-4" /> */}
-            <span className="font-semibold text-xs">Beta</span>
+          <div className="flex size-9 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 p-1.5 shadow-xs group-hover:scale-105 transition-transform">
+            <Image
+              src="/g.svg"
+              alt="Gaurisankar Tarasia"
+              width={24}
+              height={24}
+              className="size-full object-contain dark:invert"
+              priority
+            />
           </div>
           <span className="text-sm font-bold tracking-tight text-slate-900 dark:text-white">
             Gaurisankar Tarasia
@@ -55,7 +59,7 @@ export default function AppNavbar() {
             target="_blank"
             rel="noopener noreferrer"
             className="flex size-9 items-center justify-center rounded-lg border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-300 shadow-xs transition hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-blue-600 dark:hover:text-blue-400"
-            aria-label="GitHub"
+            aria-label="GitHub Profile"
           >
             <AnimatedGithubIcon className="size-4" />
           </a>
@@ -69,8 +73,15 @@ export default function AppNavbar() {
       <MobileNav>
         <MobileNavHeader>
           <NavbarLogo>
-            <div className="flex size-8 items-center justify-center rounded-lg bg-blue-600 text-white shadow-sm shadow-blue-500/20">
-              <AnimatedCodeIcon className="size-3.5" />
+            <div className="flex size-8 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 p-1.5 shadow-xs">
+              <Image
+                src="/g.svg"
+                alt="Gaurisankar Tarasia"
+                width={20}
+                height={20}
+                className="size-full object-contain dark:invert"
+                priority
+              />
             </div>
             <span className="text-sm font-bold tracking-tight text-slate-900 dark:text-white">
               Gaurisankar
@@ -110,7 +121,7 @@ export default function AppNavbar() {
               target="_blank"
               rel="noopener noreferrer"
               className="flex size-9 items-center justify-center rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300"
-              aria-label="GitHub"
+              aria-label="GitHub Profile"
             >
               <AnimatedGithubIcon className="size-4" />
             </a>

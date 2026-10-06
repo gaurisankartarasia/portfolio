@@ -1,23 +1,29 @@
-import { Inter, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const inter = Inter({
+const inter = localFont({
+  src: "./fonts/Inter.woff2",
   variable: "--font-sans",
-  subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
+const geistMono = localFont({
+  src: "./fonts/GeistMono.woff2",
   variable: "--font-geist-mono",
-  subsets: ["latin"],
+  display: "swap",
 });
 
-import Script from "next/script";
 import { ThemeProvider } from "@/components/theme-provider";
 import { UrlSyncHandler } from "@/components/url-sync-handler";
 
 export const metadata = {
   title: "Gaurisankar Tarasia | Software Engineer",
   description: "Associate Software Engineer & Full-Stack Developer Portfolio",
+  icons: {
+    icon: "/g.svg",
+    shortcut: "/g.svg",
+    apple: "/g.svg",
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -93,11 +99,6 @@ export default function RootLayout({ children }) {
           <UrlSyncHandler />
           {children}
         </ThemeProvider>
-        <Script
-          id="google-translate-script"
-          strategy="afterInteractive"
-          src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-        />
       </body>
     </html>
   );

@@ -1,20 +1,13 @@
-"use client";
 import { cn } from "@/lib/utils";
-import { motion } from "motion/react";
 import React from "react";
 
-export const Meteors = ({ number, className }) => {
-  const meteorCount = number || 20;
-  const meteors = new Array(meteorCount).fill(true);
+export const Meteors = ({ number = 10, className }) => {
+  const meteors = new Array(number).fill(true);
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
-      {meteors.map((el, idx) => {
-        const position = idx * (800 / meteorCount) - 400;
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      {meteors.map((_, idx) => {
+        const position = idx * (800 / number) - 400;
         const animationDelay = (((idx * 37 + 13) % 50) / 10).toFixed(2) + "s";
         const animationDuration = (4 + (idx % 5)) + "s";
 
@@ -28,13 +21,13 @@ export const Meteors = ({ number, className }) => {
             )}
             style={{
               top: "-20px",
-              left: `calc(${idx * (100 / meteorCount)}% + ${position / 8}px)`,
+              left: `calc(${idx * (100 / number)}% + ${position / 8}px)`,
               animationDelay,
               animationDuration,
             }}
           />
         );
       })}
-    </motion.div>
+    </div>
   );
 };

@@ -55,6 +55,30 @@ export function clearGoogleTranslateCookies() {
   } catch (e) {}
 }
 
+export function ensureGoogleTranslateLoaded() {
+  if (typeof window === "undefined") return;
+  if (document.getElementById("google-translate-script")) return;
+
+  window.googleTranslateElementInit = function () {
+    if (window.google && window.google.translate) {
+      new window.google.translate.TranslateElement(
+        {
+          pageLanguage: "en",
+          includedLanguages: "en,or,hi,bn,te,ta,es,fr,de,ja",
+          autoDisplay: false,
+        },
+        "google_translate_element"
+      );
+    }
+  };
+
+  const script = document.createElement("script");
+  script.id = "google-translate-script";
+  script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+  script.async = true;
+  document.body.appendChild(script);
+}
+
 export function applyGoogleTranslate(langCode) {
   if (typeof window === "undefined") return;
 
@@ -65,6 +89,7 @@ export function applyGoogleTranslate(langCode) {
   if (isEn) {
     clearGoogleTranslateCookies();
   } else {
+    ensureGoogleTranslateLoaded();
     document.cookie = `googtrans=/en/${langCode}; path=/;`;
     if (domain && domain !== "localhost") {
       document.cookie = `googtrans=/en/${langCode}; path=/; domain=${domain}`;
@@ -90,14 +115,15 @@ export function applyGoogleTranslate(langCode) {
     return false;
   };
 
-  if (!triggerCombo()) {
+  // Only start polling interval if non-English translation was explicitly requested
+  if (!isEn && !triggerCombo()) {
     let attempts = 0;
     const interval = setInterval(() => {
       attempts++;
-      if (triggerCombo() || attempts > 20) {
+      if (triggerCombo() || attempts > 15) {
         clearInterval(interval);
       }
-    }, 200);
+    }, 250);
   }
 }
 

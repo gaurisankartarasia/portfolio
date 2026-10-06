@@ -1,11 +1,7 @@
-"use client";
 import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
+import React from "react";
 
 export const HoverEffect = ({ items, className }) => {
-  let [hoveredIndex, setHoveredIndex] = useState(null);
-
   return (
     <div
       className={cn(
@@ -18,30 +14,11 @@ export const HoverEffect = ({ items, className }) => {
         return (
           <div
             key={item?.title || idx}
-            className="relative group block p-2 h-full w-full"
-            onMouseEnter={() => setHoveredIndex(idx)}
-            onMouseLeave={() => setHoveredIndex(null)}
+            className="group block p-2 h-full w-full"
           >
-            <AnimatePresence>
-              {hoveredIndex === idx && (
-                <motion.span
-                  className="absolute inset-0 h-full w-full bg-blue-100/70 dark:bg-blue-900/30 block rounded-2xl"
-                  layoutId="hoverBackground"
-                  initial={{ opacity: 0 }}
-                  animate={{
-                    opacity: 1,
-                    transition: { duration: 0.15 },
-                  }}
-                  exit={{
-                    opacity: 0,
-                    transition: { duration: 0.15, delay: 0.1 },
-                  }}
-                />
-              )}
-            </AnimatePresence>
-            <div className="relative z-20 flex h-full flex-col rounded-xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-5 shadow-xs backdrop-blur-xs transition-all duration-200 group-hover:border-blue-300 dark:group-hover:border-blue-500/50">
+            <div className="relative z-20 flex h-full flex-col rounded-xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-5 shadow-xs backdrop-blur-xs transition-all duration-200 group-hover:border-blue-300 dark:group-hover:border-blue-500/50 group-hover:shadow-md group-hover:-translate-y-1">
               <div className="flex items-center gap-2.5">
-                <div className="flex size-8 items-center justify-center rounded-md bg-blue-50 dark:bg-slate-800 border border-blue-200 dark:border-slate-700 text-blue-600 dark:text-sky-400">
+                <div className="flex size-8 items-center justify-center rounded-md bg-blue-50 dark:bg-slate-800 border border-blue-200 dark:border-slate-700 text-blue-600 dark:text-sky-400 transition-colors group-hover:bg-blue-600 group-hover:text-white">
                   {Icon && <Icon className="size-4" />}
                 </div>
                 <h3 className="text-sm font-bold text-slate-900 dark:text-white">

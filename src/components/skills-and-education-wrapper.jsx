@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { WavyBackground } from "@/components/ui/wavy-background";
 import SkillsSection from "@/components/skills-section";

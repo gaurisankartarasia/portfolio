@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
 import {
   AnimatedMailIcon,
@@ -25,36 +24,18 @@ export default function ContactSection() {
           {/* Left Column: Direct Info */}
           <div className="lg:col-span-5 flex flex-col justify-between">
             <div>
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="inline-flex items-center gap-2 rounded-md border border-blue-200 dark:border-blue-500/30 bg-blue-100/60 dark:bg-blue-950/40 px-3 py-0.5 text-xs font-semibold uppercase tracking-wider text-blue-800 dark:text-blue-300"
-              >
+              <div className="inline-flex items-center gap-2 rounded-md border border-blue-200 dark:border-blue-500/30 bg-blue-100/60 dark:bg-blue-950/40 px-3 py-0.5 text-xs font-semibold uppercase tracking-wider text-blue-800 dark:text-blue-300">
                 <AnimatedMailIcon className="size-3.5" />
                 <span>Contact</span>
-              </motion.div>
+              </div>
 
-              <motion.h2
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="mt-3 text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-3xl"
-              >
+              <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-3xl">
                 Let&apos;s Connect
-              </motion.h2>
+              </h2>
 
-              <motion.p
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="mt-2.5 text-xs sm:text-sm leading-relaxed text-slate-600 dark:text-slate-400"
-              >
+              <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-slate-600 dark:text-slate-400">
                 Reach out for full-stack engineering roles, enterprise collaborations, or project inquiries.
-              </motion.p>
+              </p>
             </div>
 
             <div className="mt-6 space-y-3">
@@ -108,19 +89,21 @@ export default function ContactSection() {
                   <div className="text-[11px] font-medium text-slate-500 dark:text-slate-400">Profiles</div>
                   <div className="flex items-center gap-2.5 mt-0.5 text-xs font-semibold text-blue-700 dark:text-sky-400">
                     <a
-                      href="https://github.com"
+                      href="https://github.com/gaurisankartarasia"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:underline"
+                      aria-label="GitHub Profile"
                     >
                       GitHub
                     </a>
                     <span className="text-slate-400">•</span>
                     <a
-                      href="https://linkedin.com"
+                      href="https://linkedin.com/in/gaurisankartarasia"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:underline"
+                      aria-label="LinkedIn Profile"
                     >
                       LinkedIn
                     </a>
@@ -132,13 +115,7 @@ export default function ContactSection() {
 
           {/* Contact Message Form */}
           <div className="lg:col-span-7">
-            <motion.div
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-5 md:p-6 shadow-sm"
-            >
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-5 md:p-6 shadow-sm">
               <form onSubmit={handleSubmit} className="space-y-3.5">
                 <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
                   <div>
@@ -220,7 +197,7 @@ export default function ContactSection() {
                   )}
                 </Button>
               </form>
-            </motion.div>
+            </div>
           </div>
         </div>
 
