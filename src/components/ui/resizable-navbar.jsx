@@ -39,10 +39,10 @@ export const NavBody = ({ children, className, visible }) => {
   return (
     <div
       className={cn(
-        "relative z-[60] mx-auto hidden w-full flex-row items-center justify-between self-start rounded-2xl border px-5 py-2.5 transition-all duration-300 ease-out md:flex",
+        "relative z-[60] mx-auto hidden w-full max-w-6xl flex-row items-center justify-between self-start rounded-2xl border px-5 py-2.5 transition-all duration-300 ease-out md:flex",
         visible
-          ? "max-w-4xl bg-white/90 dark:bg-[#070e1a]/90 border-slate-200/80 dark:border-slate-800/80 shadow-md shadow-slate-900/5 dark:shadow-black/20 backdrop-blur-md translate-y-1"
-          : "max-w-6xl bg-white/50 dark:bg-[#070e1a]/50 border-slate-200/40 dark:border-slate-800/40 backdrop-blur-xs translate-y-0",
+          ? "bg-white/90 dark:bg-[#070e1a]/90 border-slate-200/80 dark:border-slate-800/80 shadow-md shadow-slate-900/5 dark:shadow-black/20 backdrop-blur-md"
+          : "bg-white/50 dark:bg-[#070e1a]/50 border-slate-200/40 dark:border-slate-800/40 backdrop-blur-xs",
         className
       )}
     >
@@ -113,8 +113,8 @@ export const MobileNav = ({ children, className, visible }) => {
       className={cn(
         "relative z-50 mx-auto flex w-full flex-col items-center justify-between rounded-xl border px-3 py-2 transition-all duration-300 md:hidden",
         visible
-          ? "w-[94%] bg-white/95 dark:bg-[#070e1a]/95 border-slate-200/80 dark:border-slate-800/80 shadow-md backdrop-blur-md translate-y-1"
-          : "w-full bg-white/80 dark:bg-[#070e1a]/80 border-slate-200/50 dark:border-slate-800/50 backdrop-blur-sm translate-y-0",
+          ? "bg-white/95 dark:bg-[#070e1a]/95 border-slate-200/80 dark:border-slate-800/80 shadow-md backdrop-blur-md"
+          : "bg-white/80 dark:bg-[#070e1a]/80 border-slate-200/50 dark:border-slate-800/50 backdrop-blur-sm",
         className
       )}
     >
